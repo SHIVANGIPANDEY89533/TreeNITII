@@ -1,7 +1,9 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthProvider, AuthContext } from "./context/AuthContext";
-import Login from "./pages/Login";
+import Welcome   from "./pages/Welcome";
+import Onboard   from "./pages/Onboard";
+import Login     from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 
 function Guard({ children }) {
@@ -14,9 +16,11 @@ export default function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<Login />} />
+          <Route path="/"          element={<Welcome />}  />
+          <Route path="/onboard"   element={<Onboard />}  />
+          <Route path="/login"     element={<Login />}    />
           <Route path="/dashboard" element={<Guard><Dashboard /></Guard>} />
-          <Route path="*" element={<Navigate to="/login" replace />} />
+          <Route path="*"          element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

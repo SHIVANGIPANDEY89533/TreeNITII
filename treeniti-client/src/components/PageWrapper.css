@@ -1,0 +1,9 @@
+.pwrap {
+  min-height: 100vh;
+  padding-bottom: 72px;
+  font-family: sans-serif;
+}
+
+.pwrap-green  { background: linear-gradient(180deg,#dcfce7 0%,#f0fdf4 40%,#fff 100%); }
+.pwrap-white  { background: #f9fafb; }
+.pwrap-yellow { background: linear-gradient(180deg,#fef9c3 0%,#fffbeb 40%,#fff 100%); }

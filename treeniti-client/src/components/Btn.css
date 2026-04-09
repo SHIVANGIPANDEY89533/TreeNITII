@@ -1,0 +1,15 @@
+.cbtn {
+  border: none;
+  border-radius: 999px;
+  padding: 12px 24px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s, opacity 0.18s;
+}
+.cbtn:disabled  { opacity: 0.55; cursor: not-allowed; }
+.cbtn-full      { width: 100%; }
+.cbtn-primary   { background: #16a34a; color: #fff; }
+.cbtn-primary:hover:not(:disabled) { background: #15803d; }
+.cbtn-secondary { background: #f3f4f6; color: #374151; }
+.cbtn-outline   { background: transparent; border: 1.5px solid #16a34a; color: #16a34a; }
