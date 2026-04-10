@@ -1,49 +1,59 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Logo from "../components/Logo";
-import "./Welcome.css";
 
 export default function Welcome() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const t = setTimeout(() => navigate("/onboard"), 2800);
+    const t = setTimeout(() => navigate("/onboard"), 3000);
     return () => clearTimeout(t);
   }, [navigate]);
 
   return (
-    <div className="wlc-wrap">
+    <div style={{
+      minHeight: "100vh", width: "100%",
+      background: "linear-gradient(180deg, #f5faf0 0%, #ffffff 60%, #fdf6f0 100%)",
+      display: "flex", flexDirection: "column",
+      alignItems: "center", justifyContent: "center",
+      position: "relative", overflow: "hidden",
+      fontFamily: "'Segoe UI', sans-serif",
+    }}>
 
-      {/* Background decorative blobs */}
-      <div className="wlc-blob wlc-blob-1" />
-      <div className="wlc-blob wlc-blob-2" />
+      {/* Faded background icons */}
+      <span style={{ position: "absolute", top: "12%", left: "8%", fontSize: 56, opacity: 0.08 }}>🌿</span>
+      <span style={{ position: "absolute", top: "15%", right: "8%", fontSize: 44, opacity: 0.07 }}>🌱</span>
+      <span style={{ position: "absolute", bottom: "18%", left: "6%", fontSize: 60, opacity: 0.07 }}>🌳</span>
+      <span style={{ position: "absolute", bottom: "12%", right: "8%", fontSize: 44, opacity: 0.07 }}>🍃</span>
 
-      {/* Background faded icons */}
-      <span className="wlc-bg-icon" style={{ top: "8%",  left: "6%"  }}>🌿</span>
-      <span className="wlc-bg-icon" style={{ top: "10%", right: "6%" }}>🌱</span>
-      <span className="wlc-bg-icon" style={{ bottom: "10%", left: "6%" }}>🌳</span>
-      <span className="wlc-bg-icon" style={{ bottom: "7%", right: "6%" }}>🍃</span>
+      {/* Logo */}
+      <img
+        src="/logo.jpeg"
+        alt="Treeniti"
+        style={{ width: 150, height: 150, objectFit: "contain", marginBottom: 24 }}
+      />
 
-      {/* Center card */}
-      <div className="wlc-center">
+      {/* App name */}
+      <h1 style={{
+        fontSize: 28, fontWeight: 900, color: "#1a3a1a",
+        letterSpacing: 4, margin: "0 0 8px", textAlign: "center",
+      }}>
+        TREENITI
+      </h1>
 
-        {/* Logo — shared component */}
-        <div className="wlc-logo-wrap">
-          <Logo size={160} />
-        </div>
+      {/* Tagline */}
+      <p style={{
+        fontSize: 13, color: "#6b7280",
+        letterSpacing: 1.2, margin: 0,
+      }}>
+        Wellness | Community | Growth
+      </p>
 
-        {/* App name */}
-        <h1 className="wlc-title">TREENITI</h1>
-        <p className="wlc-tagline">Wellness | Community | Growth</p>
-
-        {/* Animated loading dots */}
-        <div className="wlc-dots">
-          <span className="wlc-dot" />
-          <span className="wlc-dot" />
-          <span className="wlc-dot" />
-        </div>
-      </div>
-
+      <style>{`
+        @keyframes blink {
+          0%,80%,100% { opacity:0.2; transform:scale(0.7); }
+          40% { opacity:1; transform:scale(1.2); }
+        }
+      `}</style>
     </div>
   );
 }
