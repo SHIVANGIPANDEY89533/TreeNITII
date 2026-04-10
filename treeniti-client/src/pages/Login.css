@@ -3,9 +3,10 @@
 :root {
   --figma-green: #144011;      /* Forest Green */
   --figma-sub-green: #3a5a3a;  /* Muted Green */
-  --bg-light: #f4f8f4;
+  --bg-light: #f4f8f4;         /* Subtle Green Tint */
 }
 
+/* 1. Global Wrapper */
 .login-wrap-new {
   min-height: 100vh;
   width: 100%;
@@ -17,6 +18,7 @@
   margin: 0;
 }
 
+/* 2. Main Card Container */
 .login-inner-container {
   width: 100%;
   max-width: 400px;
@@ -29,7 +31,7 @@
   overflow: hidden;
 }
 
-/* Header - Top Logo */
+/* 3. Header Styling */
 .login-header-new {
   display: flex;
   justify-content: space-between;
@@ -48,7 +50,12 @@
   color: var(--figma-green); 
 }
 
-/* Main Content Spacing */
+.header-icon-new {
+  color: #718096;
+  font-size: 18px;
+}
+
+/* 4. Content Spacing */
 .login-content-new {
   padding: 0 35px;
   flex-grow: 1; 
@@ -79,7 +86,7 @@
   margin-bottom: 45px;
 }
 
-/* Input Fields */
+/* 5. Input Groups (Mobile & OTP) */
 .input-label-new {
   font-size: 11px;
   font-weight: 700;
@@ -95,7 +102,7 @@
   border-radius: 50px;
   height: 54px;
   overflow: hidden;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 .country-code-new {
@@ -117,7 +124,33 @@
   font-size: 15px;
 }
 
-/* SOLID FOREST GREEN BUTTON */
+/* OTP Specific Styling (Boxes) */
+.otp-group {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.otp-box {
+  width: 65px;
+  height: 65px;
+  border: 1.5px solid var(--figma-green);
+  border-radius: 12px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--figma-green);
+  outline: none;
+  transition: all 0.2s;
+}
+
+.otp-box:focus {
+  background-color: var(--bg-light);
+  box-shadow: 0 0 0 1px var(--figma-green);
+}
+
+/* 6. Buttons & Badges */
 .login-btn-new {
   background-color: var(--figma-green);
   border: none;
@@ -133,22 +166,38 @@
   border-radius: 50px;
   margin-top: 15px;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(20, 64, 17, 0.2);
 }
 
-.login-btn-new:hover:not(:disabled) {
-  background-color: #0d2b0b;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 15px rgba(20, 64, 17, 0.3);
+.login-btn-new:hover { background-color: #0d2b0b; }
+
+.btn-plain-text {
+  background: none;
+  border: none;
+  color: var(--figma-green);
+  font-weight: 800;
+  font-size: 15px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
 }
 
-.login-btn-new:disabled {
-  background-color: #a0aec0;
-  cursor: not-allowed;
-  box-shadow: none;
+.resend-timer {
+  background: #fdf2f2;
+  color: #ef4444;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 800;
 }
 
-/* Footer Section */
+.row-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* 7. Footer & Checkbox */
 .login-footer-new {
   padding: 20px 35px 50px;
 }
@@ -180,4 +229,38 @@
   font-size: 12px;
   text-align: center;
   margin-top: 10px;
+}
+
+.lang-box {
+  border: 1.5px solid var(--figma-green);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--figma-green);
+  background: #f0f4f0;
+  transition: 0.2s;
+}
+
+.lang-box:hover {
+  background: var(--figma-green);
+  color: #fff;
+}
+
+/* Ensure Row spacing for OTP label and timer */
+.row-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.resend-timer {
+  background: #fdf2f2;
+  color: #ef4444;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 800;
 }
