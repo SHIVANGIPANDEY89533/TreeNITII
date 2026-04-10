@@ -1,0 +1,32 @@
+.custom-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 24px;
+  border-radius: 50px; /* Capsule shape from your design */
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
+  gap: 8px;
+  width: fit-content;
+}
+
+/* Green Background (English / Get Started) */
+.primary {
+  background-color: #064e1b; /* Dark green from logo */
+  color: white;
+}
+
+/* Transparent Background (Hindi) */
+.transparent {
+  background-color: transparent;
+  color: #666; /* Greyish text */
+}
+
+/* Icon styling */
+.btn-icon svg {
+  width: 18px;
+  height: 18px;
+}
