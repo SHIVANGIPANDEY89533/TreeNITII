@@ -1,89 +1,97 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import http from "../api/http";
-import { AuthContext } from "../context/AuthContext";
 import "./Login.css";
 
 export default function Login() {
-  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [step, setStep] = useState(1);
   const [phone, setPhone] = useState("");
-  const [otp, setOtp] = useState("");
-  const [hint, setHint] = useState("");
   const [msg, setMsg] = useState("");
   const [busy, setBusy] = useState(false);
+  const [agreed, setAgreed] = useState(false);
+
+  // Path from your public folder
+  const logoPath = "/treeniti.jpg"; 
 
   async function handleSend() {
     if (phone.length < 10) return setMsg("Enter a valid 10-digit number");
-    setBusy(true); setMsg("");
+    if (!agreed) return setMsg("Please accept the Terms & Policy");
+    
+    setBusy(true); 
+    setMsg("");
+    
     try {
-      const r = await http.post("/auth/send-otp", { phone });
-      setHint(r.data.devOtp || "");
-      setStep(2);
+      await http.post("/auth/send-otp", { phone });
+      navigate("/otp-verify", { state: { phone } }); 
     } catch (e) {
-      setMsg(e.response?.data?.message || "Could not send OTP");
-    } finally { setBusy(false); }
-  }
-
-  async function handleVerify() {
-    setBusy(true); setMsg("");
-    try {
-      const r = await http.post("/auth/verify-otp", { phone, otp });
-      login(r.data.token, r.data.user);
-      navigate("/dashboard");
-    } catch (e) {
-      setMsg(e.response?.data?.message || "Wrong OTP, try again");
-    } finally { setBusy(false); }
+      if (e.code === "ERR_NETWORK") {
+        setMsg("Backend server is not running (Port 5000)");
+      } else {
+        setMsg(e.response?.data?.message || "Could not send OTP");
+      }
+    } finally { 
+      setBusy(false); 
+    }
   }
 
   return (
-    <div className="login-wrap">
-      <div className="login-card">
-        <div className="login-logo">🌳</div>
-        <h1 className="login-title">TREENITI</h1>
-        <p className="login-sub">Grow your digital forest</p>
+    <div className="login-wrap-new">
+      <div className="login-inner-container">
+        
+        {/* TOP HEADER SECTION */}
+        <div className="login-header-new">
+          <div className="header-logo-group">
+            <img src={logoPath} alt="Header Logo" className="header-logo-new" />
+            <span className="header-text-new">TREENITI</span>
+          </div>
+        </div>
 
-        {step === 1 ? (
-          <>
-            <label className="login-label">Mobile Number</label>
-            <div className="login-row">
-              <span className="login-code">+91</span>
+        {/* MAIN CONTENT SECTION */}
+        <div className="login-content-new">
+          <img src={logoPath} alt="Central Logo" className="central-logo-new" />
+          
+          <h1 className="login-heading-new">Welcome to <br/> TREENITI</h1>
+          <p className="login-sub-new">Secure your digital Garden. Login with your mobile.</p>
+
+          <div className="login-form-new">
+            <label className="input-label-new">MOBILE NUMBER</label>
+            <div className="input-group-new">
+              <span className="country-code-new">+91</span>
               <input
-                className="login-input"
+                className="input-field-new"
                 type="tel"
                 maxLength={10}
-                placeholder="10-digit number"
+                placeholder="98765 43210"
                 value={phone}
-                onChange={e => setPhone(e.target.value)}
+                onChange={e => setPhone(e.target.value.replace(/\D/g, ''))}
               />
             </div>
-            <button className="login-btn" onClick={handleSend} disabled={busy}>
-              {busy ? "Sending…" : "Send OTP →"}
-            </button>
-          </>
-        ) : (
-          <>
-            <p className="login-label">OTP sent to +91 {phone}</p>
-            <input
-              className="login-input full"
-              type="text"
-              maxLength={6}
-              placeholder="Enter OTP"
-              value={otp}
-              onChange={e => setOtp(e.target.value)}
-            />
-            {hint && <p className="login-hint">Dev OTP: <b>{hint}</b></p>}
-            <button className="login-btn" onClick={handleVerify} disabled={busy}>
-              {busy ? "Verifying…" : "Verify & Grow →"}
-            </button>
-            <button className="login-back" onClick={() => setStep(1)}>
-              ← Change number
-            </button>
-          </>
-        )}
 
-        {msg && <p className="login-err">{msg}</p>}
+            {/* NEW STYLED BUTTON */}
+            <button className="login-btn-new" onClick={handleSend} disabled={busy || !agreed}>
+              {busy ? "Connecting..." : "Send OTP"}
+            </button>
+          </div>
+
+          {msg && <p className="login-err-new">{msg}</p>}
+        </div>
+
+        {/* FOOTER SECTION */}
+        <div className="login-footer-new">
+           <div className="checkbox-row-new">
+              <input 
+                type="checkbox" 
+                id="agree" 
+                checked={agreed} 
+                onChange={e => setAgreed(e.target.checked)} 
+              />
+              <label htmlFor="agree">
+                By signing in, you agree to TREENITI's <br/>
+                Environmental Impact <span className="policy-link">Terms & Privacy Policy</span>
+              </label>
+           </div>
+        </div>
+        
       </div>
     </div>
   );
