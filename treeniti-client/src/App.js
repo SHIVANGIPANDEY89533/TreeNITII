@@ -1,13 +1,10 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthProvider, AuthContext } from "./context/AuthContext";
-import Login from "./pages/Login";
+import Welcome   from "./pages/Welcome";
+import Onboard   from "./pages/Onboard";
+import Login     from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
-import Welcome from "./pages/Welcome";
-// Import your Terms page here
-import TermsAndConditions from "./pages/TermAndConditions";
-import AllPlants from "./pages/AllPlants";
-
 function Guard({ children }) {
   const { token } = useContext(AuthContext);
   return token ? children : <Navigate to="/login" replace />;
